@@ -1,5 +1,5 @@
 {
-    "name": "howyi/clickup-php",
+    "name": "viisut/clickup-php",
     "description": "ClickUp API client (unofficial)",
     "keywords": ["ClickUp", "click-up", "api"],
     "type": "library",
@@ -8,6 +8,10 @@
         {
             "name":  "Hayashi Takuya",
             "email": "qrbys@outlook.com"
+        },
+        {
+            "name":  "Siim Viisut",
+            "email": "siim.viisut@gmail.com"
         }
     ],
     "minimum-stability": "stable",
