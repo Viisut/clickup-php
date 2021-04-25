@@ -2,7 +2,12 @@
 
 namespace ClickUp\Objects;
 
-abstract class AbstractObjectCollection extends AbstractObject implements \IteratorAggregate
+use ArrayIterator;
+use IteratorAggregate;
+use RuntimeException;
+use Traversable;
+
+abstract class AbstractObjectCollection extends AbstractObject implements IteratorAggregate
 {
 	/* @var AbstractObject[] $objects */
 	protected $objects;
@@ -49,7 +54,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 	public function getByKey($id)
 	{
 		if (!isset($this->objects[$id])) {
-			throw new \RuntimeException("id:$id not exist.");
+			throw new RuntimeException("id:$id not exist.");
 		}
 		return $this->objects[$id];
 	}
@@ -66,7 +71,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 				return $value;
 			}
 		}
-		throw new \RuntimeException("name:$name not exist.");
+		throw new RuntimeException("name:$name not exist.");
 	}
 
 	/**
@@ -77,12 +82,16 @@ abstract class AbstractObjectCollection extends AbstractObject implements \Itera
 		return $this->objects;
 	}
 
-	/**
-	 * @return \ArrayIterator|\Traversable
-	 */
-	public function getIterator()
-	{
-		return new \ArrayIterator($this->objects());
-	}
+    /**
+     * @return ArrayIterator|Traversable
+     */
+    public function getIterator()
+    {
+        if ($this->objects()) {
+            return new ArrayIterator($this->objects());
+        }
+
+        return new ArrayIterator([]);
+    }
 }
 
